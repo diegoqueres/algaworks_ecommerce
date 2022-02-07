@@ -2,10 +2,7 @@ package com.algaworks.ecommerce.model;
 
 import lombok.EqualsAndHashCode;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * As classes de entidade podem ser mapeadas também nos métodos get.
@@ -22,6 +19,7 @@ public class Categoria {
     private Integer categoriaPaiId;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getId() {
         return id;
     }
