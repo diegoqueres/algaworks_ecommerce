@@ -17,7 +17,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void inserirOPrimeiroObjeto() {
         Produto produto = new Produto();
-        produto.setId(2);
         produto.setNome("Câmera Canon");
         produto.setDescricao("A melhor definição para suas fotos.");
         produto.setPreco(new BigDecimal(5000.00));
@@ -48,18 +47,17 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void atualizarObjeto() {
         Produto produto = new Produto();
-        produto.setId(1);
         produto.setNome("Kindle Paperwhite");
         produto.setDescricao("conheça papaerwhite");
         produto.setPreco(new BigDecimal(499));
 
-        entityManager.merge(produto);
+        Produto produtoCopiaGerenciada = entityManager.merge(produto);
         entityManager.getTransaction().begin();
         entityManager.getTransaction().commit();
 
         entityManager.clear();  //se não for executado, o find busca na memória do entity manager.
 
-        Produto produtoVerificar = entityManager.find(Produto.class, produto.getId());
+        Produto produtoVerificar = entityManager.find(Produto.class, produtoCopiaGerenciada.getId());
         Assert.assertNotNull(produtoVerificar);
         Assert.assertEquals("Kindle Paperwhite", produtoVerificar.getNome());
     }
@@ -81,18 +79,16 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
     public void inserirObjetoComMerge() {
         Produto produto = new Produto();
-        produto.setId(4);
         produto.setNome("Microfone Rode");
         produto.setDescricao("Melhores notas sonoras para sua voz");
         produto.setPreco(new BigDecimal(259));
 
         entityManager.getTransaction().begin();
-        entityManager.merge(produto);
+        Produto produtoGerenciado = entityManager.merge(produto);
         entityManager.getTransaction().commit();
-
         entityManager.clear();  //se não for executado, o find busca na memória do entity manager.
 
-        Produto produtoVerificar = entityManager.find(Produto.class, produto.getId());
+        Produto produtoVerificar = entityManager.find(Produto.class, produtoGerenciado.getId());
         Assert.assertNotNull(produtoVerificar);
         Assert.assertEquals("Microfone Rode", produtoVerificar.getNome());
     }
@@ -101,7 +97,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
     public void mostrarDiferencaoPersistMerge() {
         Produto produtoPersist = new Produto();
 
-        produtoPersist.setId(5);
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("O processador mais rápido.");
         produtoPersist.setPreco(new BigDecimal(2000));
@@ -120,8 +115,6 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
 
         Produto produtoMerge = new Produto();
-
-        produtoMerge.setId(6);
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O processador mais rápido.");
         produtoMerge.setPreco(new BigDecimal(2000));
@@ -133,7 +126,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
 
         entityManager.clear();  //se não for executado, o find busca na memória do entity manager.
 
-        Produto produtoMergeVerificar = entityManager.find(Produto.class, produtoMerge.getId());
+        Produto produtoMergeVerificar = entityManager.find(Produto.class, produtoCopiaMergeGerenciada.getId());
         Assert.assertNotNull(produtoMergeVerificar);
         Assert.assertEquals("Notebook Dell", produtoMergeVerificar.getNome());
     }
