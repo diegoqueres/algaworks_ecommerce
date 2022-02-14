@@ -27,7 +27,7 @@ public class AutoRelacionamentoTest extends EntityManagerTest {
         entityManager.getTransaction().commit();
 
         entityManager.clear();
-        
+
         Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
         Assert.assertNotNull(categoriaVerificacao.getCategoriaPai());
         Categoria categoriaPaiVerificacao = entityManager.find(Categoria.class, categoriaPai.getId());
