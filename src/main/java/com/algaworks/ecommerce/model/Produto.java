@@ -1,5 +1,6 @@
 package com.algaworks.ecommerce.model;
 
+import com.algaworks.ecommerce.listener.GenericoListener;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @Table(name = "produto")
 @Getter
 @Setter
+@EntityListeners({ GenericoListener.class})
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Produto {
 
