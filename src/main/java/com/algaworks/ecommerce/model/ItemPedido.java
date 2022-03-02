@@ -11,19 +11,11 @@ import java.math.BigDecimal;
 @Table(name = "item_pedido")
 @Getter
 @Setter
-@IdClass(ItemPedidoId.class)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ItemPedido {
 
-    @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "pedido_id")
-    private Integer pedidoId;
-
-    @Id
-    @EqualsAndHashCode.Include
-    @Column(name = "produto_id")
-    private Integer produtoId;
+    @EmbeddedId
+    private ItemPedidoId id;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "pedido_id", insertable = false, updatable = false)
