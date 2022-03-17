@@ -1,7 +1,6 @@
 package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @EntityListeners({ GenericoListener.class})
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Produto {
-
-    @Id
-    @EqualsAndHashCode.Include
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+public class Produto extends EntidadeBaseInteger {
 
     private String nome;
 
