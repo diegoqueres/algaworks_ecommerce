@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "pagamento")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_pagamento", discriminatorType = DiscriminatorType.STRING)
 public abstract class Pagamento extends EntidadeBaseInteger {
 
     @MapsId

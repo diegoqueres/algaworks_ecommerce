@@ -6,7 +6,8 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "pagamento_cartao")
+//@Table(name = "pagamento_cartao")
+@DiscriminatorValue(value = "cartao")
 @Getter
 @Setter
 public class PagamentoCartao extends Pagamento {
