@@ -15,8 +15,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public class EntidadeBaseInteger {
 
-    @Id
     @EqualsAndHashCode.Include
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 }

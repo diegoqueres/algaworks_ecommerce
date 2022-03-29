@@ -2,6 +2,7 @@ package com.algaworks.ecommerce.model;
 
 import com.algaworks.ecommerce.listener.GenericoListener;
 import com.algaworks.ecommerce.listener.GerarNotaFiscalListener;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,16 +11,19 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "pedido")
 @Getter
 @Setter
-@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class})
+@EntityListeners({ GerarNotaFiscalListener.class, GenericoListener.class })
+@Entity
+@Table(name = "pedido")
 public class Pedido extends EntidadeBaseInteger {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<ItemPedido> itens;
 
     @Column(name = "data_criacao", updatable = false)
     private LocalDateTime dataCriacao;
@@ -44,19 +48,15 @@ public class Pedido extends EntidadeBaseInteger {
     @Embedded
     private EnderecoEntregaPedido enderecoEntrega;
 
-    @OneToMany(mappedBy = "pedido")
-    private List<ItemPedido> itensPedido;
-
     public boolean isPago() {
         return StatusPedido.PAGO.equals(status);
     }
 
-    //    @PrePersist
-    //    @PreUpdate
+//    @PrePersist
+//    @PreUpdate
     public void calcularTotal() {
-        if (itensPedido != null) {
-            total = itensPedido.stream()
-                    .map(i -> BigDecimal.valueOf(i.getQuantidade()).multiply(i.getPrecoProduto()))
+        if (itens != null) {
+            total = itens.stream().map(ItemPedido::getPrecoProduto)
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
     }

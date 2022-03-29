@@ -39,7 +39,7 @@ public class HerancaTest extends EntityManagerTest {
         PagamentoCartao pagamentoCartao = new PagamentoCartao();
         pagamentoCartao.setPedido(pedido);
         pagamentoCartao.setStatus(StatusPagamento.PROCESSANDO);
-        pagamentoCartao.setNumero("5276520173715932");
+        pagamentoCartao.setNumeroCartao("5276520173715932");
 
         entityManager.getTransaction().begin();
         entityManager.persist(pagamentoCartao);
