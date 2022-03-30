@@ -1,14 +1,16 @@
 package com.algaworks.ecommerce.model;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 
 @Getter
 @Setter
-//@DiscriminatorValue("boleto")
+@DiscriminatorValue("boleto")
 @Entity
 @Table(name = "pagamento_boleto")
 public class PagamentoBoleto extends Pagamento {
