@@ -14,6 +14,7 @@ import java.util.List;
 )
 public class Categoria extends EntidadeBaseInteger {
 
+    @Column(columnDefinition = "varchar(100) not null")
     private String nome;
 
     @ManyToOne

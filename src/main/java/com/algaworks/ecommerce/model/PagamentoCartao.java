@@ -14,6 +14,6 @@ import javax.persistence.Table;
 @Entity
 public class PagamentoCartao extends Pagamento {
 
-    @Column(name = "numero_cartao")
+    @Column(name = "numero_cartao", length = 50, nullable = false)
     private String numeroCartao;
 }
