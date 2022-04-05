@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 public class OperacoesComTransacaoTest extends EntityManagerTest {
     @Test
@@ -20,6 +21,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Câmera Canon");
         produto.setDescricao("A melhor definição para suas fotos.");
         produto.setPreco(new BigDecimal(5000.00));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(produto);
@@ -50,6 +52,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Kindle Paperwhite");
         produto.setDescricao("conheça papaerwhite");
         produto.setPreco(new BigDecimal(499));
+        produto.setDataCriacao(LocalDateTime.now());
 
         Produto produtoCopiaGerenciada = entityManager.merge(produto);
         entityManager.getTransaction().begin();
@@ -82,6 +85,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produto.setNome("Microfone Rode");
         produto.setDescricao("Melhores notas sonoras para sua voz");
         produto.setPreco(new BigDecimal(259));
+        produto.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         Produto produtoGerenciado = entityManager.merge(produto);
@@ -100,6 +104,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoPersist.setNome("Smartphone One Plus");
         produtoPersist.setDescricao("O processador mais rápido.");
         produtoPersist.setPreco(new BigDecimal(2000));
+        produtoPersist.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         entityManager.persist(produtoPersist);
@@ -118,6 +123,7 @@ public class OperacoesComTransacaoTest extends EntityManagerTest {
         produtoMerge.setNome("Notebook Dell");
         produtoMerge.setDescricao("O processador mais rápido.");
         produtoMerge.setPreco(new BigDecimal(2000));
+        produtoMerge.setDataCriacao(LocalDateTime.now());
 
         entityManager.getTransaction().begin();
         Produto produtoCopiaMergeGerenciada = entityManager.merge(produtoMerge);

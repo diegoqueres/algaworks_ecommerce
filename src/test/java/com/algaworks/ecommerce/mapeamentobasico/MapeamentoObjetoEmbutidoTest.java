@@ -19,6 +19,7 @@ public class MapeamentoObjetoEmbutidoTest extends EntityManagerTest {
         endereco.setCep("00000-000");
 
         Cliente cliente = new Cliente();
+        cliente.setCpf("838395959595");
         cliente.setNome("Epaminondas Siqueira Júnior");
         cliente.setSexo(SexoCliente.MASCULINO);
 

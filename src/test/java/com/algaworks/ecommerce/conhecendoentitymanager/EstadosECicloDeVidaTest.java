@@ -9,6 +9,8 @@ public class EstadosECicloDeVidaTest extends EntityManagerTest {
     @Test
     public void analisarEstados() {
         Categoria categoriaNovo = new Categoria();   //Transient
+        categoriaNovo.setNome("Eletrônicos");
+
         //se quiser fazer a nova ser gerenciada...
         Categoria categoriaGerenciadaMerge = entityManager.merge(categoriaNovo);   //Managed
 

@@ -5,6 +5,7 @@ import com.algaworks.ecommerce.model.*;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class ChaveCompostaTest extends EntityManagerTest {
@@ -17,6 +18,7 @@ public class ChaveCompostaTest extends EntityManagerTest {
         pedido.setCliente(cliente);
         pedido.setDataCriacao(LocalDateTime.now());
         pedido.setStatus(StatusPedido.AGUARDANDO);
+        pedido.setTotal(BigDecimal.TEN);
 
         ItemPedido itemPedido = new ItemPedido();
         itemPedido.setId(new ItemPedidoId());
