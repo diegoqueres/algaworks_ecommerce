@@ -9,6 +9,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.List;
 
 public class CascadeTypePersistTest extends EntityManagerTest {
 
@@ -39,8 +40,8 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assert.assertNotNull(pedido);
-        Assert.assertFalse(pedido.getItens().isEmpty());
+        Assert.assertNotNull(pedidoVerificacao);
+        Assert.assertFalse(pedidoVerificacao.getItens().isEmpty());
 
     }
 
@@ -69,7 +70,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
-        Assert.assertNotNull(pedido);
+        Assert.assertNotNull(pedidoVerificacao);
     }
 
     // @Test
@@ -93,6 +94,29 @@ public class CascadeTypePersistTest extends EntityManagerTest {
         entityManager.clear();
 
         Cliente clienteVerificacao = entityManager.find(Cliente.class, cliente.getId());
-        Assert.assertNotNull(cliente);
+        Assert.assertNotNull(clienteVerificacao);
+    }
+
+    // @Test
+    public void persistirProdutoComCategoria() {
+        Categoria categoria = new Categoria();
+        categoria.setNome("Artigos de Higiene");
+
+        Produto produto = new Produto();
+        produto.setNome("Cotonete Johnson");
+        produto.setPreco(new BigDecimal(2.50));
+        produto.setDescricao("Cotonete Johson traz higiene e saúde na limpeza das orelhas.");
+        produto.setDataCriacao(LocalDateTime.now());
+        produto.setCategorias(List.of(categoria));       // CascadeType.PERSIST
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Categoria categoriaVerificacao = entityManager.find(Categoria.class, categoria.getId());
+        Assert.assertNotNull(categoriaVerificacao);
+        Assert.assertTrue(categoriaVerificacao.getProdutos().contains(produto));
     }
 }
