@@ -73,4 +73,29 @@ public class CascadeTypeMergeTest extends EntityManagerTest {
         ItemPedido itemPedidoVerificacao = entityManager.find(ItemPedido.class, itemPedido.getId());
         Assert.assertTrue(StatusPedido.PAGO.equals(itemPedidoVerificacao.getPedido().getStatus()));
     }
+
+    @Test
+    public void atualizarProdutoComCategoria() {
+        Produto produto = new Produto();
+        produto.setId(1);
+        produto.setDataUltimaAtualizacao(LocalDateTime.now());
+        produto.setPreco(new BigDecimal(500));
+        produto.setNome("Kindle");
+        produto.setDescricao("Agora com iluminação embutida ajustável.");
+
+        Categoria categoria = new Categoria();
+        categoria.setId(2);
+        categoria.setNome("Tablets");
+
+        produto.setCategorias(Arrays.asList(categoria));       // CascadeType.MERGE
+
+        entityManager.getTransaction().begin();
+        entityManager.merge(produto);
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Produto produtoVerificacao = entityManager.find(Produto.class, produto.getId());
+        Assert.assertTrue(produtoVerificacao.getCategorias().contains(categoria));
+    }
 }
