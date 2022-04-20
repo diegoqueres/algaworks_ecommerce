@@ -45,7 +45,7 @@ public class CascadeTypePersistTest extends EntityManagerTest {
 
     }
 
-    @Test
+    // @Test
     public void persistirItemPedidoComPedido() {
         Cliente cliente = entityManager.find(Cliente.class, 1);
         Produto produto = entityManager.find(Produto.class, 1);
