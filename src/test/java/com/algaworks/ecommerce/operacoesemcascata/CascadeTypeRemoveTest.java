@@ -10,6 +10,27 @@ import org.junit.Test;
 
 public class CascadeTypeRemoveTest extends EntityManagerTest {
 
+    // @Test
+    public void removerItensOrfaos() {
+        Pedido pedido = entityManager.find(Pedido.class, 1);
+
+        Assert.assertFalse(pedido.getItens().isEmpty());
+
+        entityManager.getTransaction().begin();
+        ItemPedido itemPedido = pedido.getItens().get(0);
+        pedido.getItens().clear();          //Para remover os itens quando limpar a lista: CascadeType.PERSIST com orphanRemoval = true
+                                            //Se quiser só remover os filhos quando remover o pai, apenas o orphanRemoval = true já bastaria
+        entityManager.getTransaction().commit();
+
+        entityManager.clear();
+
+        Pedido pedidoVerificacao = entityManager.find(Pedido.class, pedido.getId());
+        Assert.assertTrue(pedidoVerificacao.getItens().isEmpty());
+
+        ItemPedido itemPedidoVerificacao = entityManager.find(ItemPedido.class, itemPedido.getId());
+        Assert.assertNull(itemPedidoVerificacao);
+    }
+
     @Test
     public void removerRelacaoProdutoCategoria() {
         Produto produto = entityManager.find(Produto.class, 1);
