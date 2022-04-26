@@ -4,6 +4,9 @@ import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.Cliente;
 import com.algaworks.ecommerce.model.Pedido;
 import com.algaworks.ecommerce.model.Produto;
+import lombok.Getter;
+import lombok.Setter;
+import org.hibernate.transform.Transformers;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -12,6 +15,17 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class BasicoJPQLTest extends EntityManagerTest {
+
+    @Test
+    public void projetarOResultado() {
+        String jpql = "select id, nome from Produto";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        List<Object[]> lista = typedQuery.getResultList();
+
+        Assert.assertTrue(lista.get(0).length == 2);
+        lista.forEach(arr -> System.out.println(arr[0] + ", " + arr[1]));
+    }
 
     @Test
     public void selecionarUmAtributoParaRetorno() {
