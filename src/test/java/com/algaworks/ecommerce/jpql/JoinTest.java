@@ -14,6 +14,20 @@ import java.util.List;
 public class JoinTest extends EntityManagerTest {
 
     @Test
+    public void usarJoinFetch() {
+        //traz de uma vez só os dados da entidade e dos atributos lazy no join
+        String jpql = "select p from Pedido p "
+                + " left join fetch p.pagamento "
+                + " join fetch p.cliente "
+                + " left join fetch p.notaFiscal ";
+
+        TypedQuery<Pedido> typedQuery = entityManager.createQuery(jpql, Pedido.class);
+
+        List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
     public void fazerLeftJoin() {
         String jpql = "select p from Pedido p left join p.pagamento pag on pag.status = 'PROCESSANDO'";
 
