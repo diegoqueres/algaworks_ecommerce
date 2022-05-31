@@ -3,6 +3,7 @@ package com.algaworks.ecommerce.jpql;
 import com.algaworks.ecommerce.EntityManagerTest;
 import com.algaworks.ecommerce.model.NotaFiscal;
 import com.algaworks.ecommerce.model.Pedido;
+import com.algaworks.ecommerce.model.Produto;
 import com.algaworks.ecommerce.model.StatusPagamento;
 import org.junit.Assert;
 import org.junit.Test;
@@ -70,6 +71,16 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
         typedQuery.setParameter("dataFinal", LocalDateTime.now());
 
         List<Pedido> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarExpressaoDiferente() {
+        String jpql = "select p from Produto p where p.preco <> 100";
+
+        TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
+
+        List<Produto> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
     }
 
