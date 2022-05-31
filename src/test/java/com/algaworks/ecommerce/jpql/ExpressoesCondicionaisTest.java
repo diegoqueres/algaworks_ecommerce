@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import javax.persistence.TemporalType;
 import javax.persistence.TypedQuery;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -40,6 +41,19 @@ public class ExpressoesCondicionaisTest extends EntityManagerTest {
         String jpql = "select p from Produto p where p.categorias is empty";
 
         TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+
+        List<Object[]> lista = typedQuery.getResultList();
+        Assert.assertFalse(lista.isEmpty());
+    }
+
+    @Test
+    public void usarMaiorMenor() {
+        String jpql = "select p from Produto p" +
+                " where p.preco >= :precoInicial and p.preco <= :precoFinal";
+
+        TypedQuery<Object[]> typedQuery = entityManager.createQuery(jpql, Object[].class);
+        typedQuery.setParameter("precoInicial", new BigDecimal(400));
+        typedQuery.setParameter("precoFinal", new BigDecimal(1500));
 
         List<Object[]> lista = typedQuery.getResultList();
         Assert.assertFalse(lista.isEmpty());
