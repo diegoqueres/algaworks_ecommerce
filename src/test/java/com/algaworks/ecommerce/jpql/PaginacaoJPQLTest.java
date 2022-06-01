@@ -25,4 +25,15 @@ public class PaginacaoJPQLTest extends EntityManagerTest {
 
         lista.forEach(c -> System.out.println(c.getId() + ", " + c.getNome()));
     }
+
+    @Test
+    public void limitarResultados() {
+        String jpql = "select c from Categoria c";
+
+        TypedQuery<Categoria> typedQuery = entityManager.createQuery(jpql, Categoria.class);
+        typedQuery.setMaxResults(2);
+
+        List<Categoria> lista = typedQuery.getResultList();
+        Assert.assertEquals(2, lista.size());
+    }
 }
