@@ -17,7 +17,7 @@ public class SubqueriesTest extends EntityManagerTest {
         // Todos os produtos que sempre foram vendidos pelo mesmo preço.
         String jpql = "select distinct p from ItemPedido ip join ip.produto p where " +
                 " ip.precoProduto = ALL " +
-                " (select precoProduto from ItemPedido where produto = p and id <> ip.id)";
+                " (select precoProduto from ItemPedido ip2 where produto = p and ip2.id <> ip.id)";
 
         TypedQuery<Produto> typedQuery = entityManager.createQuery(jpql, Produto.class);
 
